@@ -23,7 +23,7 @@
                         
                     
                         <a href="">
-                             <button class="ui primary button w-big mb-5 "> See Profile</button>
+                            <a href={{obj.get_absolute_url}}> <button class="ui primary button mb-5 w-big">See profile</button></a>
                         </a>
                         <form action="{% url 'profiles:accept-invite' %}" method="POST">
                             {% csrf_token %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}
+
+{% endblock title %}
+{% block content %}
+<div class="ui link cards">
+    {% for obj in qs %}
+    <div class="card">
+        <div class="image">
+        <img src={{obj.avatar.url}}>
+        </div>
+        <div class="content">
+        <div class="header">{{obj.teacher}}</div>
+        <div class="meta">
+            <a>{{obj.level}}</a>
+        </div>
+        <div class="description">
+            {{obj.content}}
+        </div>
+        </div>
+        <div class="extra content">
+        <span class="right floated">
+            {{obj.created}}
+        </span>
+        <span>
+            <i class="user icon"></i>
+            Anonce
+        </span>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+{% endblock content %}
+{% block scripts %}
+{% endblock scripts %}

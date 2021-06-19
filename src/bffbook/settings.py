@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'profiles',
     'posts',
-    
+    'anonce',
     
     # django all-auth
     'allauth',

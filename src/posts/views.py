@@ -1,5 +1,6 @@
 from django.shortcuts import render , redirect
 from django.urls import reverse_lazy
+from django.views.generic.list import ListView
 from .models import Post,Like
 from profiles.models import Profile
 from .forms import PostModelForm,CommentModelForm
@@ -13,8 +14,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 @login_required
 def post_comment_create_and_list_view(request):
-    qs = Post.objects.all()
-    profile = Profile.objects.get(user=request.user)
+    if 'q' in request.GET:
+        q=request.GET['q']
+        qs=Post.objects.filter(content__icontains=q)
+    else:
+        qs = Post.objects.all()
+        profile = Profile.objects.get(user=request.user)
 
     #Post form , Comment form
 
@@ -86,6 +91,7 @@ def like_unlike_post(request):
     
     return redirect('posts:main-post-view')
 
+
 class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'posts/confirm_del.html'
@@ -97,6 +103,10 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
         if not obj.author.user == self.request.user:
             messages.warning(self.request, 'You need to be the author of the post in order to delete it')
         return obj
+
+
+
+
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     form_class = PostModelForm

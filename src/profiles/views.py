@@ -67,6 +67,7 @@ def reject_invatation(request):
     return redirect('profiles:my-invites-view')
 
 
+
 @login_required
 def invite_profile_list_view(request):
     user = request.user
@@ -80,7 +81,7 @@ def invite_profile_list_view(request):
 @login_required
 def profile_list_view(request):
     user = request.user
-    qs = Profile.objects.get_all_profiles(user)
+    qs = Profile.get_friends()
 
     context = {
         'qs' : qs, 
@@ -125,7 +126,7 @@ class ProfileListView(LoginRequiredMixin, ListView):
     #context_object_name = 'qs'
 
     def get_queryset(self):
-        qs = Profile.objects.get_all_profiles(self.request.user)
+        qs = Profile.get_friends(self.request.user)
         return qs
 
     def get_context_data(self, **kwargs):
